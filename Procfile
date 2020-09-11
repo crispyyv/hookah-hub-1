@@ -1,1 +1,1 @@
-web: env-cmd -f ./.env nodemon ./app.js
+web: node app.js
