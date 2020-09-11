@@ -5,7 +5,7 @@ const articleRouter = require("./routers/article");
 const bodyParser = require("body-parser");
 const fileUpload = require("express-fileupload");
 
-const port = process.env.PORT;
+const port = process.env.PORT || 3000;
 
 require("./db/db");
 
