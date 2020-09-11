@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<%- include('../blocks/head.ejs'); %>
+<body>
+  <%- include('../blocks/header.ejs'); %>
+  <div class="container">
+    <div class="content">
+      <main>
+        <div class="menubarSeparator"></div>
+        <section class="main">
+          <div class="form-wrap">
+            <form method="post">
+              <h1>Регистрация</h1>
+              <label>Ваше имя</label>
+              <input id="name" type="text" placeholder="Ваше имя">
+              <label>Ваш Email</label>
+              <input id="email" type="email" name="email" placeholder="Логин">
+              <label>Ваш пароль</label>
+              <input id="password" type="password" name="password" placeholder="Пароль">
+              <button id="btn">Зарегистрироваться</button>
+              <span id="account"><a href="/auth">Вы уже зарегистрированы?</a></span>
+            </form>
+          </div>
+        </section>
+        <div class="page-end"></div>
+      </main>
+    </div>
+  </div>
+  <%- include('../blocks/footer.ejs'); %>
+  <script>
+    const btn = document.getElementById('btn')
+    const inputs = document.getElementsByTagName('input')
+
+    btn.addEventListener('click', async function (e) {
+      e.preventDefault();
+      var userData = {
+      name : document.getElementById('name').value,
+      email : document.getElementById('email').value,
+      password : document.getElementById('password').value
+      }
+      console.log(userData)
+      let response = await fetch('/reg', {
+      method: 'POST',
+      headers: {
+      'Content-Type': 'application/json;charset=utf-8'
+      },
+      body: JSON.stringify(userData)
+      })
+      
+    });   
+  </script>
+</body>
+</html>

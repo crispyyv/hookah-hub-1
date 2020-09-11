@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+
+ <%- include('../blocks/head.ejs'); %>
+
+<body>
+  <%- include('../blocks/header.ejs'); %>
+  <div class="container">
+    <div class="content">
+      <main>
+        <div class="menubarSeparator"></div>
+        <section class="main">
+          <div class="form-wrap">
+            <form method="post">
+              <h1>Вход</h1>
+              <label>Ваш Email</label>
+              <input id="email" type="email" name="email" placeholder="Логин">
+              <label>Ваш пароль  </label>
+              <input id="password" type="password" name="password" placeholder="Пароль">
+              <button id="btn">Войти</button>
+              <span id="account"><a href="/reg">Нет аккаунта?</a></span>
+            </form>
+          </div>
+        </section>
+        <div class="page-end"></div>
+      </main>
+    </div>
+  </div>
+  <%- include('../blocks/footer.ejs'); %>
+  <script>
+    const btn = document.getElementById('btn')
+    const inputs = document.getElementsByTagName('input')
+    btn.addEventListener('click', async function (e) {
+      e.preventDefault();
+      var userData = {
+        email: document.getElementById('email').value,
+        password: document.getElementById('password').value
+      }
+      console.log(userData)
+      let response = await fetch('/login', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json;charset=utf-8'
+        },
+        body: JSON.stringify(userData)
+      })
+      const result = await response
+      const res = await result.json()
+      console.log(result)
+      console.log(res)
+      if(res.user.name){
+        alert("Hello "+ res.user.name)
+        window.location.href = '/'
+      }else{
+        alert("Проверьте введеные данные!")
+      }
+    });
+  </script>
+</body>
+
+</html>

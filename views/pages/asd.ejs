@@ -1,0 +1,40 @@
+<%- include('../blocks/head.ejs'); %>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
+<body>
+  <div class="container">
+    <%- include('../blocks/header.ejs'); %>
+    <div class="content">
+      <div class="menubarSeparator"></div>
+      <section class="main">
+        <article class="post-headline">
+						<div class="headline">
+							<span class="author_content">HookahHub💨</span>
+							<span class="post_time"><i class="far fa-clock" aria-hidden="true"></i><span>2 часа назад</span></span>
+							<span class="check"><i class="far fa-eye" aria-hidden="true"></i>100</span>
+						</div>
+						<div class="name-info replace" >
+						<%=headline%>
+						</div>
+					</article>
+        <section class="article_desc replace">
+          <%=content%>
+        </section>
+        <div class="like-content">
+					  <button class="btn-secondary like-review">
+					    <i class="fa fa-heart" aria-hidden="true"></i> Like
+					  </button>
+					</div>
+      </section>
+      <div class="page-end"></div>
+    </div>
+    <%- include('../blocks/footer.ejs'); %>
+  </div>
+  <script>
+      const html = document.getElementById('some_articles')
+      $('.replace').each(function(){
+        var $this = $(this);
+        var t = $this.text();
+        $this.html(t.replace('&lt','<').replace('&gt', '>'));
+      });
+  </script>
+</body>

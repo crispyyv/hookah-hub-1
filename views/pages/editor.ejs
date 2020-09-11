@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+  <%- include('../blocks/head.ejs'); %>
+  <script src="https://tinymce.cachefly.net/4.2/tinymce.min.js"></script>
+  
+  <script>
+  tinymce.init({
+    selector: "textarea",
+    theme: "modern",
+    paste_data_images: true,
+    plugins: [
+      "advlist autolink lists link image charmap print preview hr anchor pagebreak",
+      "searchreplace wordcount visualblocks visualchars code fullscreen",
+      "insertdatetime media nonbreaking save table contextmenu directionality",
+      "emoticons template paste textcolor colorpicker textpattern"
+    ],
+    toolbar1: "insertfile undo redo | styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image",
+    toolbar2: "print preview media | forecolor backcolor emoticons",
+    image_advtab: true,
+    file_picker_callback: function(callback, value, meta) {
+      if (meta.filetype == 'image') {
+        document.querySelector('#upload').click();
+        document.querySelector('#upload').addEventListener('change', function() {
+          var file = this.files[0];
+          var reader = new FileReader();
+          reader.onload = function(e) {
+            callback(e.target.result, {
+              alt: ''
+            });
+          };
+          reader.readAsDataURL(file);
+        });
+      }
+    },
+    templates: [{
+      title: 'Test template 1',
+      content: 'Test 1'
+    }, {
+      title: 'Test template 2',
+      content: 'Test 2'
+    }]
+  });
+</script>
+<body>
+  
+  <div class="container">
+    <%- include('../blocks/header.ejs'); %>
+    <div class="content">
+      <div class="menubarSeparator"></div>
+      <section class="main">
+        <form method="post">
+          <h1>Создавай по полной</h1>
+          <div class = "about-article">
+            Hазвание статьи: 
+            <input id="article-name" type="text" name="article-name"/>
+            <br>
+            Номер статьи: 
+            <input id="article-number" type="text" name="article-number"/>
+          </div>
+          <textarea id="editor"></textarea>
+          <input name="image" type="file" id="upload" class="hidden" onchange="">
+          <input type="submit" id="save-btn"
+          value="Опубливковать"/>
+          
+        </form>
+      </section>
+      <div class="page-end"></div>
+    </div>  
+    <%- include('../blocks/footer.ejs'); %>
+  </div>
+  <script>
+    
+    const saveBtn = document.getElementById('save-btn');
+    saveBtn.addEventListener('click', async (e)=>{
+      const save = tinymce.get('editor').getContent({format : 'raw'});
+      function getRandomInt(max) {
+        return Math.floor(Math.random() * Math.floor(max));
+      }
+      const num = document.getElementById('article-number').value + getRandomInt(10000);
+      var article = {
+        number: num,
+        title: document.getElementById('article-name').value,
+        content: save, 
+      }
+      let response = await fetch('/create_article', {
+        method: 'POST', 
+        headers: {
+          'Content-Type': 'application/json;charset=utf-8'
+        },
+        body: JSON.stringify(article),
+      })
+      const result = await response
+      console.log(result)
+      if(result.status === 200){
+        window.location.href = '/pg_' + num
+      }
+    })
+  </script>
+</body>
+</html>

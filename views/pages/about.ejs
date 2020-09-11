@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+ <%- include('../blocks/head.ejs'); %>
+<body>
+	<div class="container">
+	 <%- include('../blocks/header.ejs'); %>
+	<div class="content">
+		<main>
+			<div class="menubarSeparator"></div>
+			<section class="about xxx">
+				<h1>Всем привет!</h1>
+				<p>Нам очень приятно, что вы посетили наш блог. Мы создаем для вас сайт, на котором рассказываем о всех фишках курения кальянов.</p>
+				<p >HookaHub в первую очередь это первое русскоязычное кальянное общество. Давай развивать кальянную культуру вместе с нами!</p>
+				<div class="team-member"><h3>Разработчик</h3><p><a target="_blank"  href="http://t.me/crispyy_vl">Владислав Кучерявый</a></p></div>
+				<div class="team-member"><h3>Главный редактор</h3><p><a  target="_blank" href="http://t.me/zahgoz">Захарий Гострый</a></p></div>
+				<div class="team-member"><h3>Смм-менеджер</h3><p><a  target="_blank" href="https://www.instagram.com/glb.blr/">Глеб Балюра</a></p></div>
+			</section>
+			<div class="page-end"></div>
+		</main>
+	</div>
+	<%- include('../blocks/footer.ejs'); %>
+	</div>
+	<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+	<!--<script id="rendered-js">
+		
+      	var openButton = document.querySelector(".openButton");
+        var content = document.querySelector(".content");
+        var menujs = document.querySelector(".mobile-menu");
+		
+		document.querySelector(".openButton").addEventListener("click", (e) => { 
+        if(!document.querySelector(".openButton").classList.contains("openDone"))
+        {
+        	
+        	openButton.classList.add("openDone");
+            content.classList.toggle("content_active");
+            menujs.style.cssText = "top : 50vh ";
+
+        }
+        else
+        {	
+           	openButton.classList.remove("openDone");
+            content.classList.remove("content_active");
+            menujs.style.cssText = "top : -999px ";
+        }
+    });
+
+	</script>
+	 -->
+	<script src="../../js/main.js"></script>
+</body>
+</html>
